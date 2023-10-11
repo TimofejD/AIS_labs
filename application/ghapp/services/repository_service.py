@@ -34,7 +34,7 @@ def get_greenhouse_by_culture_id(culture_id: int) -> Optional[Greenhouse]:
 def get_greenhouse_by_culture_name(culture_name: str) -> QuerySet:
     """ Выборка всех записей о теплице по наименованию выращиваемой культуры """
     greenhouse = Greenhouse.objects.select_related('Culture').filter(Culture__name=culture_name).all()
-    # объект Weather и связанные объекты City (сфильтром по city_name) будут получены
+    # объект Greenhouse и связанные объекты Culture (с фильтром по culture_name) будут получены
     # через JOIN-запрос, т.о. при вызове weather.city дополнительных SQL-запросов не будет
     # Конструкция city__name означает обращение к полю "name" объекта City, связанного с Weather через поле "city"
     return greenhouse
@@ -46,11 +46,11 @@ def create_greenhouse(gh_name: str, area_m2: float, culture: int, tntdata: int) 
     greenhouse.save()
 
 
-def update_greenhouse_name_and_area(GH_Name: str, Area_m2: float, Сulture: int) -> None:
+def update_greenhouse_name_and_area(gh_name: str, area_m2: float, culture_id: int) -> None:
     """ Обновление значений площади и названия для теплицы с заданной культурой"""
-    greenhouse = get_greenhouse_by_culture_id(Сulture)
-    greenhouse.GH_Name = GH_Name
-    greenhouse.Area_m2 = Area_m2
+    greenhouse = get_greenhouse_by_culture_id(culture_id)
+    greenhouse.GH_Name = gh_name
+    greenhouse.Area_m2 = area_m2
     greenhouse.save()
 
 
@@ -59,9 +59,9 @@ def delete_greenhouse_by_culture_name(culture_name: str) -> None:
     get_greenhouse_by_culture_name(culture_name).delete()
 
 
-def add_culture(culture_name: str, ReqTemp: float, ReqHum: float) -> None:
+def add_culture(culture_name: str, reqtemp: float, reqhum: float) -> None:
     """ Добавление новой выращиваемой культуры """
-    culture = CultureType.objects.create(name=culture_name, ReqTempC=ReqTemp, ReqHum=ReqHum)
+    culture = CultureType.objects.create(name=culture_name, ReqTempC=reqtemp, ReqHum=reqhum)
     culture.save()
 
 def add_tntdata(time: datetime.datetime, temp: float) -> None:

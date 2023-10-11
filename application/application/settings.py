@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Регистрация модлуей Django. При регистрации пользовательского модуля, созданного через команду startapp
 # необходимо указать путь к классу конфигурации модуля, который по умолчанию находится в apps.py
 INSTALLED_APPS = [
+    'rest_framework',
+    'drf_yasg',
     'ghapp.apps.GHappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
