@@ -25,7 +25,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('smartgreenhouse/<str:culture_name>', views.GetDelAllGreenhouse.as_view()),
+    path('smartgreenhouse/<str:ghname>', views.GetDelAllGreenhouse.as_view()),
     path('smartgreenhouse', views.GetPostPutGreenhouse.as_view()),
     path('culture', views.PostCulture.as_view()),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),

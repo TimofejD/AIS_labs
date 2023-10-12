@@ -34,9 +34,9 @@ class GetDelAllGreenhouse(GenericAPIView):
         response = service.get_all_greehouses_by_culture(culture_name)
         return Response(data=response.data)
 
-    def delete(self, request: Request, culture_name: str) -> Response:
+    def delete(self, request: Request, ghname: str) -> Response:
         """ Удаление всех записей о погоде в населённом пункте """
-        service.delete_greenhouse_info_by_culture_name(culture_name)
+        service.delete_greenhouse_info_by_ghname(ghname)
         return Response(status=status.HTTP_200_OK)
 
 
@@ -45,7 +45,7 @@ class GetPostPutGreenhouse(GenericAPIView):
     renderer_classes = [JSONRenderer]
 
     def get(self, request: Request, *args, **kwargs) -> Response:
-        """ Получение записи о погоде в населенном пункте по идентификатору населенного пункта (необходим параметр ?city_id=) """
+        """ Получение записи о теплице по заданной культуре (необходим параметр ?culture_id=) """
         culture_id = request.query_params.get('culture_id')        # получаем параметр id из адреса запроса, например: /api/weatherforecast?city_id=1
         if culture_id is None:
             return Response('Expecting query parameter ?culture_id= ', status=status.HTTP_400_BAD_REQUEST)
@@ -55,16 +55,18 @@ class GetPostPutGreenhouse(GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def post(self, request: Request, *args, **kwargs) -> Response:
-        """ Добавить новую запись о погоде """
+        """ Добавить новую запись о теплице """
         serializer = GreenhouseSerializer(data=request.data)
+        print(request.data)
         if serializer.is_valid():
             service.add_greenhouse_info(serializer)
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request: Request, *args, **kwargs) -> Response:
-        """ Обновить самую старую запись о погоде """
+        """ Обновить самую старую запись о теплице """
         serializer = GreenhouseSerializer(data=request.data)
+        print(request.data)
         if serializer.is_valid():
             service.update_greenhouse_info(serializer)
             return Response(status=status.HTTP_201_CREATED)
@@ -76,7 +78,7 @@ class PostCulture(CreateAPIView):
     renderer_classes = [JSONRenderer]
 
     def post(self, request: Request, *args, **kwargs) -> Response:
-        """ Добавить новый населённый пункт """
+        """ Добавить новую культуру """
         serializer = CultureSerializer(data=request.data)
         if serializer.is_valid():
             service.add_culture(serializer)

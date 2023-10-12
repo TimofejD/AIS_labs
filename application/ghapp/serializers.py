@@ -16,8 +16,8 @@ from rest_framework import serializers
 class GreenhouseSerializer(serializers.Serializer):
     GH_Name = serializers.CharField()
     Area_m2 = serializers.IntegerField()
-    Culture = serializers.IntegerField()
-    TnTData = serializers.IntegerField()
+    Culture_id = serializers.IntegerField()
+    TnTData_id = serializers.IntegerField()
     updated_on = serializers.DateTimeField(required=False)
 
     """ Класс Serializer позволяет переопределить наследуемые 
@@ -27,5 +27,5 @@ class GreenhouseSerializer(serializers.Serializer):
 
 class CultureSerializer(serializers.Serializer):
     name = serializers.CharField()
-    ReqTempC = serializers.FloatField(required=False)
-    ReqHum = serializers.FloatField(required=False)
+    ReqTempC = serializers.FloatField()
+    ReqHum = serializers.FloatField()

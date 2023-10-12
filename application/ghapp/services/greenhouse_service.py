@@ -28,22 +28,26 @@ class GreenhouseService:
         return greenhouse_data
 
     def add_greenhouse_info(self, greenhouse: GreenhouseSerializer) -> None:
-        weather_data = greenhouse.data     # получаем валидированные с помощью сериализатора данные (метод .data  возвращает объект типа dict)
-        create_greenhouse(gh_name=weather_data.get('GH_Name'),
-                          area_m2=weather_data.get('Area_m2'),
-                          culture=weather_data.get('Culture'),
-                          tntdata=weather_data.get('TnTdata')
+        greenhouse_data = greenhouse.data     # получаем валидированные с помощью сериализатора данные (метод .data  возвращает объект типа dict)
+        create_greenhouse(gh_name=greenhouse_data.get('GH_Name'),
+                          area_m2=greenhouse_data.get('Area_m2'),
+                          culture=greenhouse_data.get('Culture_id'),
+                          tntdata=greenhouse_data.get('TnTData_id')
                           )
 
     def update_greenhouse_info(self, greenhouse: GreenhouseSerializer) -> None:
         greenhouse_data = greenhouse.data
-        return update_greenhouse_name_and_area(gh_name=greenhouse_data.get('GH_Name'),
+        return update_greenhouse_area_and_culture(gh_name=greenhouse_data.get('GH_Name'),
                                                area_m2=greenhouse_data.get('Area_m2'),
-                                               culture_id=greenhouse_data.get('Culture')
+                                               culture_id=greenhouse_data.get('Culture_id'),
                                                )
 
     def delete_greenhouse_info_by_culture_name(self, culture_name: str) -> None:
         delete_greenhouse_by_culture_name(culture_name.upper())
+
+
+    def delete_greenhouse_info_by_ghname(self, ghname: str) -> None:
+        delete_greenhouse_by_ghname(ghname.upper())
 
     def add_culture(self, culture: CultureSerializer) -> None:
         culture_data = culture.data
