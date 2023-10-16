@@ -29,13 +29,13 @@ class GetDelAllGreenhouse(GenericAPIView):
     serializer_class = GreenhouseSerializer    # определяем сериализатор (необходимо для генерирования страницы Swagger)
     renderer_classes = [JSONRenderer]       # определяем тип входных данных
 
-    def get(self, request: Request, culture_name: str) -> Response:
-        """ Получение всех записей о погоде в населённом пункте """
-        response = service.get_all_greehouses_by_culture(culture_name)
+    def get(self, request: Request, ghname: str) -> Response:
+        """ Получение всех записей о теплицах по заданной культуре """
+        response = service.get_all_greehouses_by_culture(ghname)
         return Response(data=response.data)
 
     def delete(self, request: Request, ghname: str) -> Response:
-        """ Удаление всех записей о погоде в населённом пункте """
+        """ Удаление всех записей о теплицах по имени """
         service.delete_greenhouse_info_by_ghname(ghname)
         return Response(status=status.HTTP_200_OK)
 
