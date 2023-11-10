@@ -8,5 +8,9 @@ from .models import *
 
 admin.site.register(Greenhouse)
 admin.site.register(CultureType)
-admin.site.register(TnTData)
-admin.site.register(TimeSchedule)
+admin.site.register(Schedule)
+admin.site.register(SmartModule)
+admin.site.register(HeatingModule)
+admin.site.register(VentilationModule)
+admin.site.register(LightingModule)
+admin.site.register(IrrigationModule)

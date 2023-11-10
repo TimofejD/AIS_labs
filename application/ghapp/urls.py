@@ -25,9 +25,15 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('smartgreenhouse/<str:ghname>', views.GetDelAllGreenhouse.as_view()),
+    path('smartgreenhouse/<str:culture_name>', views.GetDelAllGreenhouse.as_view()),
     path('smartgreenhouse', views.GetPostPutGreenhouse.as_view()),
-    path('culture', views.PostCulture.as_view()),
+    path('culture', views.GetPostPutDelCulture.as_view()),
+    path('schedule', views.GetPostPutDelSchedule.as_view()),
+    path('smartmodule', views.GetPostDelSmartModule.as_view()),
+    path('heatmodule', views.GetPostDelHeatModule.as_view()),
+    path('ventmodule', views.GetPostDelVentModule.as_view()),
+    path('lightmodule', views.GetPostDelLightModule.as_view()),
+    path('irrigationmodule', views.GetPostDelIrrigationModule.as_view()),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
 ]

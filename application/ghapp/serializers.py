@@ -29,3 +29,37 @@ class CultureSerializer(serializers.Serializer):
     name = serializers.CharField()
     ReqTempC = serializers.FloatField()
     ReqHum = serializers.FloatField()
+
+
+class ScheduleSerializer(serializers.Serializer):
+    Time = serializers.TimeField()
+    ReqAction = serializers.CharField()
+
+
+class SmartModuleSerializer(serializers.Serializer):
+    heatModule_id = serializers.IntegerField()
+    lightModule_id = serializers.IntegerField()
+    ventModule_id = serializers.IntegerField()
+    irrigModule_id = serializers.IntegerField()
+    curState = serializers.CharField()
+
+
+class HeatingModuleSerializer(serializers.Serializer):
+    mode = serializers.CharField()
+    curState = serializers.CharField()
+
+
+class VentilationModuleSerializer(serializers.Serializer):
+    mode = serializers.CharField()
+    curState = serializers.CharField()
+
+
+class LightingModuleSerializer(serializers.Serializer):
+    mode = serializers.CharField()
+    curState = serializers.CharField()
+
+
+class IrrigationModuleSerializer(serializers.Serializer):
+    mode = serializers.CharField()
+    curState = serializers.CharField()
+
