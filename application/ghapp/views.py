@@ -31,9 +31,9 @@ class GetDelAllGreenhouse(GenericAPIView):
     serializer_class = GreenhouseSerializer    # определяем сериализатор (необходимо для генерирования страницы Swagger)
     renderer_classes = [JSONRenderer]       # определяем тип входных данных
 
-    def get(self, request: Request, ghname: str) -> Response:
+    def get(self, request: Request, culture_name: str) -> Response:
         """ Получение всех записей о теплицах по заданной культуре """
-        response = service.get_all_greehouses_by_culture(ghname)
+        response = service.get_all_greehouses_by_culture(culture_name)
         return Response(data=response.data)
 
     def delete(self, request: Request, culture_name: str) -> Response:
@@ -67,10 +67,9 @@ class GetPostPutGreenhouse(GenericAPIView):
     def put(self, request: Request, *args, **kwargs) -> Response:
         """ Обновить самую старую запись о теплице """
         serializer = GreenhouseSerializer(data=request.data)
-        print(request.data)
         if serializer.is_valid():
             service.update_greenhouse_info(serializer)
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_202_ACCEPTED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -101,7 +100,7 @@ class GetPostPutDelCulture(CreateAPIView):
         serializer = CultureSerializer(data=request.data)
         if serializer.is_valid():
             service.update_culture_info(serializer)
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_202_ACCEPTED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request: Request, culture_name: str) -> Response:
@@ -137,7 +136,7 @@ class GetPostPutDelSchedule(CreateAPIView):
         serializer = ScheduleSerializer(data=request.data)
         if serializer.is_valid():
             service.update_schedule_info(serializer)
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_202_ACCEPTED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request: Request, schedule_id: int) -> Response:

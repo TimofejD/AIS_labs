@@ -17,9 +17,9 @@ class GreenhouseSerializer(serializers.Serializer):
     GH_Name = serializers.CharField()
     Area_m2 = serializers.IntegerField()
     Culture_id = serializers.IntegerField()
-    TnTData_id = serializers.IntegerField()
+    Schedule_id = serializers.IntegerField()
+    SmartModule_id = serializers.IntegerField()
     updated_on = serializers.DateTimeField(required=False)
-
     """ Класс Serializer позволяет переопределить наследуемые 
         методы create() и update(), в которых, например, можно реализовать бизнес-логику 
         для сохранения или обновления валидируемого объекта (например, для DAO ) """
